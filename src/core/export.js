@@ -615,6 +615,24 @@ export async function exportToPNG(element, filename, statusElement, options = {}
 
 		finalCtx.drawImage(overlayCanvas, 0, 0);
 
+		// Render Watermark directly into final output if it is visible
+		const localWatermark = document.getElementById('app-watermark');
+		if (localWatermark && localWatermark.style.display !== 'none') {
+			finalCtx.save();
+			finalCtx.translate(finalCanvas.width / 2, finalCanvas.height / 2);
+			finalCtx.rotate(-45 * Math.PI / 180);
+			finalCtx.fillStyle = 'rgba(15, 23, 42, 0.25)'; // text-slate-900/40 equivalent approx
+
+			// Responsive text size based on canvas width
+			const fontSize = Math.max(40, finalCanvas.width * 0.08);
+			finalCtx.font = `900 ${fontSize}px sans-serif`;
+			finalCtx.textAlign = 'center';
+			finalCtx.textBaseline = 'middle';
+			finalCtx.letterSpacing = '0.2em';
+			finalCtx.fillText('JS-MAP-TO-POSTER', 0, 0);
+			finalCtx.restore();
+		}
+
 		const link = document.createElement('a');
 		link.download = filename;
 		link.href = finalCanvas.toDataURL('image/png', 1.0);
