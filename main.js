@@ -118,7 +118,7 @@ window.addEventListener('resize', () => {
 
 // --- ADMIN LOGIN LOGIC ---
 const AUTHORIZED_USERS = [
-	{ username: "pliztec", hash: "6c5f7e7f1bf208dc693630fbc0536c4ff5aa3fd2821d3cf5cd0d3a51f4961d36" }
+	{ username: "pliztec", hash: "c696c3da73e1839b20c6e9a88ce1b99c3641cb70da1c64f1dcbb18324ab525cf" }
 	// Password is "pliztectomap"
 ];
 
