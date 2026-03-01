@@ -116,4 +116,75 @@ window.addEventListener('resize', () => {
 	updatePreviewStyles(state);
 });
 
+// --- ADMIN LOGIN LOGIC ---
+const AUTHORIZED_USERS = [
+	{ username: "pliztec", hash: "6c5f7e7f1bf208dc693630fbc0536c4ff5aa3fd2821d3cf5cd0d3a51f4961d36" }
+	// Password is "pliztectomap"
+];
+
+let isAdminLoggedIn = false;
+
+async function sha256(message) {
+	const msgBuffer = new TextEncoder().encode(message);
+	const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const loginModal = document.getElementById('login-modal');
+const loginForm = document.getElementById('login-form');
+const closeLoginBtn = document.getElementById('close-login');
+const loginOverlay = document.getElementById('login-overlay');
+const systemLoginBtn = document.getElementById('system-login-btn');
+const loginErrorMsg = document.getElementById('login-error');
+const appWatermark = document.getElementById('app-watermark');
+
+function openLogin() {
+	loginErrorMsg.classList.add('hidden');
+	loginModal.classList.add('show');
+	document.getElementById('login-username').value = '';
+	document.getElementById('login-password').value = '';
+}
+
+function closeLogin() {
+	loginModal.classList.remove('show');
+}
+
+if (systemLoginBtn) {
+	systemLoginBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		const creditsModal = document.getElementById('credits-modal');
+		if (creditsModal) creditsModal.classList.remove('show');
+
+		if (!isAdminLoggedIn) openLogin();
+		else alert("You are already logged in!");
+	});
+}
+
+if (closeLoginBtn) closeLoginBtn.addEventListener('click', closeLogin);
+if (loginOverlay) loginOverlay.addEventListener('click', closeLogin);
+
+if (loginForm) {
+	loginForm.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		loginErrorMsg.classList.add('hidden');
+
+		const uInput = document.getElementById('login-username').value.trim();
+		const pInput = document.getElementById('login-password').value;
+
+		const currentHash = await sha256(pInput);
+
+		const validUser = AUTHORIZED_USERS.find(u => u.username === uInput && u.hash === currentHash);
+
+		if (validUser) {
+			isAdminLoggedIn = true;
+			if (appWatermark) appWatermark.style.display = 'none'; // Hide watermark
+			closeLogin();
+		} else {
+			loginErrorMsg.classList.remove('hidden');
+		}
+	});
+}
+// -------------------------
+
 setTimeout(invalidateMapSize, 500);
