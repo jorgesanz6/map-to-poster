@@ -117,10 +117,7 @@ window.addEventListener('resize', () => {
 });
 
 // --- ADMIN LOGIN LOGIC ---
-const AUTHORIZED_USERS = [
-	{ username: "pliztec", hash: "c696c3da73e1839b20c6e9a88ce1b99c3641cb70da1c64f1dcbb18324ab525cf" }
-	// Password is "pliztectomap"
-];
+// Users are fetched dynamically from /users.json
 
 let isAdminLoggedIn = false;
 
@@ -174,16 +171,25 @@ if (loginForm) {
 		const uInput = document.getElementById('login-username').value.trim();
 		const pInput = document.getElementById('login-password').value;
 
-		const currentHash = await sha256(pInput);
+		try {
+			const res = await fetch('/users.json');
+			if (!res.ok) throw new Error('Could not load authorized users list.');
+			const AUTHORIZED_USERS = await res.json();
 
-		const validUser = AUTHORIZED_USERS.find(u => u.username === uInput && u.hash === currentHash);
+			const currentHash = await sha256(pInput);
 
-		if (validUser) {
-			isAdminLoggedIn = true;
-			if (appWatermark) appWatermark.style.display = 'none'; // Hide watermark
-			closeLogin();
-		} else {
-			loginErrorMsg.classList.remove('hidden');
+			const validUser = AUTHORIZED_USERS.find(u => u.username === uInput && u.hash === currentHash);
+
+			if (validUser) {
+				isAdminLoggedIn = true;
+				if (appWatermark) appWatermark.style.display = 'none'; // Hide watermark
+				closeLogin();
+			} else {
+				loginErrorMsg.classList.remove('hidden');
+			}
+		} catch (err) {
+			console.error('Error fetching users.json:', err);
+			alert('Error verifying credentials. Check if users.json is available.');
 		}
 	});
 }
