@@ -136,6 +136,7 @@ const loginForm = document.getElementById('login-form');
 const closeLoginBtn = document.getElementById('close-login');
 const loginOverlay = document.getElementById('login-overlay');
 const systemLoginBtn = document.getElementById('system-login-btn');
+const systemLoginBtnMobile = document.getElementById('system-login-btn-mobile');
 const loginErrorMsg = document.getElementById('login-error');
 const appWatermark = document.getElementById('app-watermark');
 
@@ -150,16 +151,17 @@ function closeLogin() {
 	loginModal.classList.remove('show');
 }
 
-if (systemLoginBtn) {
-	systemLoginBtn.addEventListener('click', (e) => {
-		e.preventDefault();
-		const creditsModal = document.getElementById('credits-modal');
-		if (creditsModal) creditsModal.classList.remove('show');
+const loginHandler = (e) => {
+	e.preventDefault();
+	const creditsModal = document.getElementById('credits-modal');
+	if (creditsModal) creditsModal.classList.remove('show');
 
-		if (!isAdminLoggedIn) openLogin();
-		else alert("You are already logged in!");
-	});
-}
+	if (!isAdminLoggedIn) openLogin();
+	else alert("You are already logged in!");
+};
+
+if (systemLoginBtn) systemLoginBtn.addEventListener('click', loginHandler);
+if (systemLoginBtnMobile) systemLoginBtnMobile.addEventListener('click', loginHandler);
 
 if (closeLoginBtn) closeLoginBtn.addEventListener('click', closeLogin);
 if (loginOverlay) loginOverlay.addEventListener('click', closeLogin);

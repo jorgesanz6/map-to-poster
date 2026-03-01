@@ -79,6 +79,54 @@
 
 	<aside
 		class="hidden md:flex md:flex-col md:relative md:w-[380px] md:h-full bg-white border-r border-slate-100 overflow-hidden">
+		<!-- Start Controls Header -->
+		<div
+			class="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10 hidden md:flex">
+			<div class="flex items-center space-x-4">
+				<div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/20">
+					<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+					</svg>
+				</div>
+				<div>
+					<h1 class="text-xl font-bold tracking-tight text-slate-900 group flex items-center space-x-2">
+						<span class="logo-pulse">⚡</span>
+						<span>MapToPoster</span>
+					</h1>
+					<p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-0.5">Studio Edition
+					</p>
+				</div>
+			</div>
+			<div class="flex items-center space-x-2">
+				<button id="system-login-btn"
+					class="px-3 py-1.5 text-xs font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 hover:text-accent flex items-center rounded-lg transition-colors space-x-1"
+					title="Admin Login">
+					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+					</svg>
+					<span>Login</span>
+				</button>
+				<button id="presets-btn"
+					class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-400 transition-colors"
+					title="Size Presets">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+					</svg>
+				</button>
+				<button id="credits-btn"
+					class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-400 transition-colors"
+					title="Credits">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</button>
+			</div>
+		</div>
+		<!-- End Controls Header -->
 		<div class="p-8 pb-6 flex items-center justify-between">
 			<button id="logo-btn"
 				class="flex items-center space-x-3 hover:opacity-80 transition-opacity text-left outline-none group">
@@ -984,10 +1032,24 @@
 							class="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-600">vite</span>
 					</div>
 				</div>
+				<div class="px-5 w-full">
+					<div class="h-px w-full border-t border-dashed border-slate-200"></div>
+				</div>
+				<button id="system-login-btn-mobile"
+					class="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-accent transition-colors group relative -ml-2 pb-5"
+					title="Admin Login">
+					<div
+						class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 group-hover:bg-slate-100 transition-colors mb-1">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+						</svg>
+					</div>
+				</button>
 			</div>
 
-			<div class="p-6 bg-slate-50 border-t border-slate-100 flex flex-col items-center space-y-3">
-				<a href="https://github.com/dimartarmizi/map-to-poster" target="_blank"
+			<div class="p-6 bg-slate-50 border-t border-slate-100 flex flex-col items-center space-y-3 relative">
+				<a href="https://github.com/jorgesanz6/map-to-poster" target="_blank"
 					class="flex items-center space-x-2 text-[10px] font-bold text-slate-400 hover:text-accent transition-colors uppercase tracking-[0.1em] group">
 					<svg class="w-4 h-4 text-slate-400 group-hover:text-accent transition-colors" fill="currentColor"
 						viewBox="0 0 24 24">
@@ -996,8 +1058,8 @@
 					</svg>
 					<span>Open source</span>
 				</a>
-				<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50">Made with ❤️ in
-					Indonesia</p>
+				<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50">JS-MAP-TO-POSTER
+				</p>
 			</div>
 		</div>
 	</div>
