@@ -37,7 +37,7 @@ export const defaultState = {
 		{ lat: 43.7699, lon: 11.2562 }
 	],
 	markerIcon: 'pin',
-	markerSize: 40,
+	markerSize: 1,
 	showRoute: false,
 	routeStartLat: 43.7699,
 	routeStartLon: 11.2562,
@@ -103,6 +103,9 @@ function loadSettings() {
 		const toApply = {};
 		for (const k of SAVED_KEYS) {
 			if (k in parsed) toApply[k] = parsed[k];
+		}
+		if (toApply.markerSize > 3) {
+			toApply.markerSize = toApply.markerSize / 40.0;
 		}
 		Object.assign(state, toApply);
 	} catch (e) {
